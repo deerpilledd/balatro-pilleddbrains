@@ -1,0 +1,15 @@
+{
+  "id": "pilleddbrains",
+  "name": "pilleddbrains",
+  "display_name": "pilleddbrains",
+  "author": ["deerpilledd."],
+  "description": "Placeholder.",
+  "prefix": "dp",
+  "prefixcomment":"ABOVE PREFIX IS ADDED TO E.G. LOCALIZATION!",
+  "main_file": "pilleddbrains.lua",
+  "priority": 10,
+  "badge_colour": "1de619",
+  "badge_text_colour": "",
+  "version": "1.0.1",
+  "dependencies": ["Steamodded (>=1.0.0~BETA-1016c)"]
+}
