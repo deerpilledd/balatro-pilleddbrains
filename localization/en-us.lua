@@ -55,10 +55,10 @@ return {
                 name = "Shaggy From Fortnite",
                 text = {
                     {
-                        "Create a random {C:attention}Food Joker{}",
+                        "Create a random {C:attention}Joker{}",
                         "when {C:attention}Blind{} is selected",
+                        "{s:0.6,E:0.5,C:transparent}Like Zoinks Scoob! They're Clowns!{}",
                         "{s:0.9,C:transparent}(Must have room){}",
-                        "{s:0.7,E:0.5,C:transparent}Like Zoinks Scoob!{}",
                     },
                 },
             },
