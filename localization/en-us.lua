@@ -48,10 +48,20 @@ return {
                 text = {
                     {
                         "{s:1.3,C:edition,E:1,X:mult} X#1#{} {s:1.3,E:1}Mult{}"
-                    }
-                }
-            }
-        
+                    },
+                },
+            },
+            j_dp_jk_cellshaggy = {
+                name = "Shaggy From Fortnite",
+                text = {
+                    {
+                        "Create a random {C:attention}Food Joker{}",
+                        "when {C:attention}Blind{} is selected",
+                        "{s:0.9,C:transparent}(Must have room){}",
+                        "{s:0.7,E:0.5,C:transparent}Like Zoinks Scoob!{}",
+                    },
+                },
+            },
         },
     },
     misc = {
@@ -74,6 +84,7 @@ return {
             a_xmult="X#1# Mult",
             a_xmult_minus="-X#1# Mult",
             dp_stoned_ex="Stoned!",
+            dp_zoinks_ex="Zoinks!",
         },
 
         v_dictionary = {
