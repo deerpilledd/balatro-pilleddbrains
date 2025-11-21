@@ -44,6 +44,13 @@ SMODS.Atlas({
     py = 93,
 })
 
+SMODS.Atlas({
+    key = "xm_simple",
+    path = "BlankCard.png",
+    px = 69,
+    py = 93,
+})
+
 SMODS.Joker{
     key = "tos_medusa",
     config = { extra = { x_mult = 1, x_mult_mod = 0.2 }},
@@ -163,6 +170,38 @@ SMODS.Joker{
         if context.end_of_round then 
             return {
                 remove = true,
+            }
+        end
+    end
+}
+
+SMODS.Joker{
+    key = "xm_simple",
+    config = { extra = {x_mult = 1} },
+    pos = { x = 0, y = 0 },
+    rarity = 2,
+    cost = 7, 
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true, 
+    discovered = true,  
+    effect = nil,
+    atlas = "xm_simple",
+    soul_pos = nil,
+
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = { card.ability.extra.x_mult },
+            key = self.key,
+            }
+        end,
+
+    calculate = function(self, card, context)
+        if context.joker_main then 
+            card.ability.extra.x_mult = 1
+            return {
+                colour = G.C.MULT,
+                x_mult = card.ability.extra.x_mult,
             }
         end
     end

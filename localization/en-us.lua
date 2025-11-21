@@ -21,7 +21,7 @@ return {
                         "per every {C:attention}Stone{} card scored,",
                         "this Joker gains {X:mult,C:white} X#1# {} Mult",
                         "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive})",
-                    }
+                    },
                 },
             },
             j_dp_tos_monarch = {
@@ -40,6 +40,14 @@ return {
                     {
                         "{E:1,C:dark_edition}Retriggers all cards.{}",
                         "{s:0.8,C:green}Played and Held in hand."
+                    },
+                },
+            },
+            j_dp_xm_simple = {
+                name = "Simpleton",
+                text = {
+                    {
+                        "{s:1.3,C:edition,E:1,X:mult} X#1#{} {s:1.3,E:1}Mult{}"
                     }
                 }
             }
