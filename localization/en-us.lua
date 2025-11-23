@@ -62,6 +62,14 @@ return {
                     },
                 },
             },
+            j_dp_jk_wirtl = {
+                name = "REPO Semi-Bot",
+                text = {
+                    {
+                        "{s:0.6}What if Raven Team Leader had a built-in emote where she rips off her clothes.. and gets {E:1} fucking naked.{}"
+                    }
+                }
+            }
         },
     },
     misc = {
