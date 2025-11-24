@@ -9,7 +9,8 @@ SMODS.Blind{
     key = "bl_dp_riot",
     atlas = "bl_dp_riot",
     mult = 3, 
-    boss = {min = 3},
+    dollars = 7,
+    boss = { showdown = true },
     boss_colour = HEX('03FCF4'),
     debuff = { hand = {['Four of a Kind'] = true}, h_size_le = 4, suit = 'Hearts', suit = 'Clubs', value = 13, value = 12, },
 

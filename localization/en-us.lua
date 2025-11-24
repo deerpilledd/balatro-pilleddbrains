@@ -93,6 +93,13 @@ return {
             a_xmult_minus="-X#1# Mult",
             dp_stoned_ex="Stoned!",
             dp_zoinks_ex="Zoinks!",
+            dp_legendary="Legendary",
+            dp_apex="Apex",
+        },
+
+        labels = {
+            dp_legendary="Legendary",
+            dp_apex="Apex",
         },
 
         v_dictionary = {

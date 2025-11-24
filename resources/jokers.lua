@@ -130,7 +130,7 @@ SMODS.Joker{
     key = "tos_monarch",
     config = { },
     pos = { x = 0, y = 0 },
-    rarity = 4,
+    rarity = "dp_apex",
     cost = 20,
     blueprint_compat = false,
     eternal_compat = true,
@@ -141,16 +141,18 @@ SMODS.Joker{
     soul_pos = nil,
 
     calculate = function(self, card, context)
-        if not context.blueprint and context.consumeable.ability.set == "Tarot" then
-            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    local card = create_card('Tarot_Planet', G.consumeables, nil, nil, nil, nil, G.GAME.last_tarot_planet, 'fool')
-                    card:add_to_deck()
-                    G.consumeables:emplace(card)
+        if context.using_consumeable and G.consumeables.cards[1] then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local card_to_copy, _ = pseudorandom_element(G.consumeables.cards, 'vremade_perkeo')
+                    local copied_card = copy_card(card_to_copy)
+                    copied_card:set_edition("e_negative", true)
+                    copied_card:add_to_deck()
+                    G.consumeables:emplace(copied_card)
                     return true
-                    end
-                }))
-            end
+                end
+            }))
+            return { message = localize('k_duplicated_ex') }
         end
     end,
     
@@ -161,7 +163,7 @@ SMODS.Joker{
 
 SMODS.Joker{
     key = "wild_redseal",
-    config = { },
+    config = { extra = {repetitions = 1}},
     pos = { x = 0, y = 0 },
     rarity = 4,
     cost = 20,
@@ -174,9 +176,21 @@ SMODS.Joker{
     soul_pos = nil,
 
 	calculate = function(self, card, context)
-        if context.end_of_round then 
+        if context.other_joker and context.other_joker.label == 'dp_wild_redseal' then
             return {
-                remove = true,
+                repetitions = card.ability.extra.repetitions
+            }
+        end
+
+        if context.repetition and context.cardarea == G.play then
+            return {
+                repetitions = card.ability.extra.repetitions
+            }
+        end
+
+        if context.repetition and context.cardarea == G.hand and (next(context.card_effects[1]) or #context.card_effects > 1) then
+            return {
+                repetitions = card.ability.extra.repetitions
             }
         end
     end
@@ -209,6 +223,7 @@ SMODS.Joker{
             return {
                 colour = G.C.MULT,
                 x_mult = card.ability.extra.x_mult,
+                balance = true
             }
         end
     end
@@ -237,6 +252,7 @@ SMODS.Joker{
                     for _ = 1, jokers_to_create do
                         SMODS.add_card {
                             set = 'Joker',
+                            key_append = 'jk_cellshaggy'
                         }
                         G.GAME.joker_buffer = 0
                     end
