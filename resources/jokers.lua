@@ -39,7 +39,7 @@ SMODS.Atlas({
 
 SMODS.Atlas({
     key = "wild_redseal",
-    path = "BlankCard.png",
+    path = "j_redseal.png",
     px = 69,
     py = 93,
 })
@@ -54,8 +54,8 @@ SMODS.Atlas({
 SMODS.Atlas({
     key = "jk_cellshaggy",
     path = "j_cellshaggy.png",
-    px = 35,
-    py = 62,
+    px = 69,
+    py = 93,
 })
 
 SMODS.Joker{
