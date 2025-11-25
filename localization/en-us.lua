@@ -67,9 +67,18 @@ return {
                 text = {
                     {
                         "{s:0.6}What if Raven Team Leader had a built-in emote where she rips off her clothes.. and gets {E:1} fucking naked.{}"
+                    },
+                },
+            },
+            j_dp_jk_exposed = {
+                name = "Exposed!",
+                text = {
+                    {
+                        "Create a {C:attention}Ponzi Scheme{}! and",
+                        "get "
                     }
                 }
-            }
+            },
         },
     },
     misc = {

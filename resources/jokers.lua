@@ -27,35 +27,43 @@ SMODS.Atlas({
     key = "tos_medusa",
     path = "j_sample_multieffect.png",
     px = 71,
-    py = 95
+    py = 95,
 })
 
 SMODS.Atlas({
     key = "tos_monarch",
-    path = "j_sample_rarebaseballcard.png",
+    path = "j_monarch.png",
     px = 71,
-    py = 95
+    py = 95,
+    atlas_table = "ASSET_ATLAS"
 })
 
 SMODS.Atlas({
     key = "wild_redseal",
     path = "j_redseal.png",
-    px = 69,
-    py = 93,
+    px = 71,
+    py = 95,
 })
 
 SMODS.Atlas({
     key = "xm_simple",
     path = "BlankCard.png",
-    px = 69,
-    py = 93,
+    px = 71,
+    py = 95,
 })
 
 SMODS.Atlas({
     key = "jk_cellshaggy",
     path = "j_cellshaggy.png",
-    px = 69,
-    py = 93,
+    px = 71,
+    py = 95,
+})
+
+SMODS.Atlas({
+    key = "jk_exposed",
+    path = "j_exposed.png",
+    px = 71,
+    py = 95,
 })
 
 SMODS.Joker{
@@ -131,20 +139,20 @@ SMODS.Joker{
     config = { },
     pos = { x = 0, y = 0 },
     rarity = "dp_apex",
-    cost = 20,
+    cost = 40,
     blueprint_compat = false,
     eternal_compat = true,
     unlocked = true,
     discovered = true,
     effect = nil,
     atlas = 'tos_monarch',
-    soul_pos = nil,
+    soul_pos = { x = 0, y = 1, },
 
     calculate = function(self, card, context)
-        if context.using_consumeable and G.consumeables.cards[1] then
+        if context.using_consumeable and G.consumeables.cards[0] then
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local card_to_copy, _ = pseudorandom_element(G.consumeables.cards, 'vremade_perkeo')
+                    local card_to_copy, _ = G.GAME.last_tarot_planet
                     local copied_card = copy_card(card_to_copy)
                     copied_card:set_edition("e_negative", true)
                     copied_card:add_to_deck()
@@ -165,8 +173,8 @@ SMODS.Joker{
     key = "wild_redseal",
     config = { extra = {repetitions = 1}},
     pos = { x = 0, y = 0 },
-    rarity = 4,
-    cost = 20,
+    rarity = "dp_apex",
+    cost = 40,
     blueprint_compat = false,
     eternal_compat = true,
     unlocked = true,
@@ -264,5 +272,22 @@ SMODS.Joker{
                 colour = G.C.BLUE,
             }
         end
+    end
+}
+
+SMODS.Joker{
+    key = "jk_exposed",
+    config = { },
+    rarity = 3,
+    cost = 8,
+    unlocked = true,
+    discovered = true,
+    pos = { x = 0, y = 0 },
+    atlas = "jk_exposed",
+
+    loc_vars = function(self, info_queue, card)
+        return { }
     end,
+    calculate = function(self, card, context)
+    end
 }
