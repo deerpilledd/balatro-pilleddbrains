@@ -11,6 +11,8 @@ return {
             },
         },
 
+
+
         Joker = {
             j_dp_tos_medusa = {
                 name = "Medusa",
@@ -76,6 +78,17 @@ return {
                     {
                         "Create a {C:attention}Ponzi Scheme{}! and",
                         "get "
+                    }
+                }
+            },
+        },
+
+        Spectral = {
+            c_dp_s_apex = {
+                name = "Apex",
+                text = {
+                    {
+                        "Create an {C:dark_edition,E:1}Apex{} card.",
                     }
                 }
             },

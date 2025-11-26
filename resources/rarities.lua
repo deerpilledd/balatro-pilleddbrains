@@ -9,6 +9,7 @@ SMODS.Rarity {
 
 SMODS.Rarity {
     key = "dp_apex",
+    loc_txt = { name = 'Apex' },
     default_weight = 0,
     badge_colour = HEX("FF0000"),
     pools = { ["Joker"] = true, },

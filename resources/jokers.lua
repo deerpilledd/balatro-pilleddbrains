@@ -81,49 +81,22 @@ SMODS.Joker{
     soul_pos = nil,
 
     calculate = function(self, card, context)
-        if context.scoring_hand and context.cardarea == G.play and G.GAME.current_round.hands_left == 0 then
-            local enhanced = {}
-            local stoned = {}
-            for k, v in ipairs(context.scoring_hand) do
-                if v.config.center ~= G.P_CENTERS.m_stone and not v.debuff and not v.stoned then
-                    enhanced[#enhanced+1] = v
-                    v.stoned = true 
-                    v:set_ability(G.P_CENTERS.m_stone, nil, true)
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            v:juice_up()
-                            v.stoned = nil
-                            return true
-                            end
-                        }))
-                    end
-            if #enhanced > 0 then
-                return {extra = {focus = card, message = localize('dp_stoned_ex')}, colour = G.C.MULT, true}
-                end
+            if context.joker_main then
+                return {
+                    colour = G.C.RED,
+                    x_mult = card.ability.extra.x_mult,
+                }
             end
+        if context.individual and context.cardarea == G.play and context.other_card.ability.name == "Stone Card" and not context.blueprint then
+            card.ability.extra.x_mult_mod = 0.2
+            card.ability.extra.x_mult = (card.ability.extra.x_mult + card.ability.extra.x_mult_mod)
 
-                if context.joker_main then
-                    return {
-                        colour = G.C.RED,
-                        x_mult = card.ability.extra.x_mult,
-                    }
-                end
-
-            if context.individual and context.cardarea == G.play then 
-                if context.other_card.ability.name == "Stone Card" and not context.blueprint then
-                        card.ability.extra.x_mult_mod = 0.2
-                        card.ability.extra.x_mult = (card.ability.extra.x_mult + card.ability.extra.x_mult_mod)
-
-                        return {
-                            extra = {focus = card, message = localize('k_upgrade_ex')},
-                            colour = G.C.MULT,
-                        }
-                    else
-                        return nil, true
-                    end
-                end
-            end
-        end,
+            return {
+                extra = {focus = card, message = localize('k_upgrade_ex')},
+                colour = G.C.MULT,
+            }
+        end 
+    end,
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_stone
@@ -277,7 +250,7 @@ SMODS.Joker{
 
 SMODS.Joker{
     key = "jk_exposed",
-    config = { },
+    config = { extra = {dollars = 1, increase = 15} },
     rarity = 3,
     cost = 8,
     unlocked = true,
@@ -286,8 +259,21 @@ SMODS.Joker{
     atlas = "jk_exposed",
 
     loc_vars = function(self, info_queue, card)
-        return { }
+        return { vars = { card.ability.extra.dollars, card.ability.extra.increase } }
     end,
     calculate = function(self, card, context)
+        if context.end_of_round and context.game_over == false and context.main_eval and context.beat_boss then
+            -- See note about SMODS Scaling Manipulation on the wiki
+            card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.increase
+            return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.MONEY
+            }
+        else
+            card.ability.extra.dollars = 1
+        end
+    end,
+    calc_dollar_bonus = function(self, card)
+        return card.ability.extra.dollars
     end
 }
