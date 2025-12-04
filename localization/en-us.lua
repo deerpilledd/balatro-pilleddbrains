@@ -77,7 +77,9 @@ return {
                 text = {
                     {
                         "Create a {C:attention}Ponzi Scheme{}! and",
-                        "get "
+                        "get an extra {C:money}$15{} at",
+                        "the end of the {C:attention}Boss Blind{}!",
+                        "{s:0.8}{C:green}#3# in #4#{} chance to disable the {C:attention}Boss Blind{}",
                     }
                 }
             },

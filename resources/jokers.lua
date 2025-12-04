@@ -25,7 +25,7 @@ end
 
 SMODS.Atlas({
     key = "tos_medusa",
-    path = "j_sample_multieffect.png",
+    path = "blankcard.png",
     px = 71,
     py = 95,
 })
@@ -47,7 +47,7 @@ SMODS.Atlas({
 
 SMODS.Atlas({
     key = "xm_simple",
-    path = "BlankCard.png",
+    path = "blankcard.png",
     px = 71,
     py = 95,
 })
@@ -233,7 +233,7 @@ SMODS.Joker{
                     for _ = 1, jokers_to_create do
                         SMODS.add_card {
                             set = 'Joker',
-                            key_append = 'jk_cellshaggy'
+                            key_append = 'dp_jk_cellshaggy'
                         }
                         G.GAME.joker_buffer = 0
                     end
@@ -250,7 +250,7 @@ SMODS.Joker{
 
 SMODS.Joker{
     key = "jk_exposed",
-    config = { extra = {dollars = 1, increase = 15} },
+    config = { extra = {dollars = 1, odds = 6} },
     rarity = 3,
     cost = 8,
     unlocked = true,
@@ -259,21 +259,36 @@ SMODS.Joker{
     atlas = "jk_exposed",
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.dollars, card.ability.extra.increase } }
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds,
+            'dp_jk_exposed') 
+        return { vars = { card.ability.extra.dollars, card.ability.extra.increase, numerator, denominator } }   
     end,
     calculate = function(self, card, context)
-        if context.end_of_round and context.game_over == false and context.main_eval and context.beat_boss then
-            -- See note about SMODS Scaling Manipulation on the wiki
-            card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.increase
-            return {
-                message = localize('k_upgrade_ex'),
-                colour = G.C.MONEY
-            }
-        else
-            card.ability.extra.dollars = 1
+        if context.setting_blind and not context.blueprint and context.blind.boss
+            and SMODS.pseudorandom_probability(card, 'dp_jk_exposed', 1, card.ability.extra.odds) then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                G.GAME.blind:disable()
+                                return true
+                            end
+                        }))
+                        SMODS.calculate_effect({ message = localize('ph_boss_disabled') }, card)
+                        return true
+                    end
+                }))
+            end,
+
+    calc_dollar_bonus = function(self, card, context)
+        if context.end_of_round and context.game_over == false and context.main_eval and
+            if context.beat_boss then
+                card.ability.extra.dollars = 15
+                return card.ability.extra.dollars
+            else
+                card.ability.extra.dollars = 1
+                return card.ability.extra.dollars
+            end
         end
-    end,
-    calc_dollar_bonus = function(self, card)
-        return card.ability.extra.dollars
     end
 }
