@@ -46,7 +46,7 @@ SMODS.Atlas({
 })
 
 SMODS.Atlas({
-    key = "xm_simple",
+    key = "jk_simple",
     path = "blankcard.png",
     px = 71,
     py = 95,
@@ -62,6 +62,13 @@ SMODS.Atlas({
 SMODS.Atlas({
     key = "jk_exposed",
     path = "j_exposed.png",
+    px = 71,
+    py = 95,
+})
+
+SMODS.Atlas({
+    key = "rsb",
+    path = "blankcard.png",
     px = 71,
     py = 95,
 })
@@ -178,7 +185,7 @@ SMODS.Joker{
 }
 
 SMODS.Joker{
-    key = "xm_simple",
+    key = "jk_simple",
     config = { extra = {x_mult = 1} },
     pos = { x = 0, y = 0 },
     rarity = 2,
@@ -188,7 +195,7 @@ SMODS.Joker{
     unlocked = true, 
     discovered = true,  
     effect = nil,
-    atlas = "xm_simple",
+    atlas = "jk_simple",
     soul_pos = nil,
 
     loc_vars = function(self, info_queue, card)
@@ -261,7 +268,7 @@ SMODS.Joker{
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds,
             'dp_jk_exposed') 
-        return { vars = { card.ability.extra.dollars, card.ability.extra.increase, numerator, denominator } }   
+        return { vars = { card.ability.extra.dollars, numerator, denominator } }   
     end,
     calculate = function(self, card, context)
         if context.setting_blind and not context.blueprint and context.blind.boss
@@ -278,17 +285,37 @@ SMODS.Joker{
                         return true
                     end
                 }))
-            end,
-
-    calc_dollar_bonus = function(self, card, context)
-        if context.end_of_round and context.game_over == false and context.main_eval and
-            if context.beat_boss then
-                card.ability.extra.dollars = 15
-                return card.ability.extra.dollars
-            else
-                card.ability.extra.dollars = 1
-                return card.ability.extra.dollars
             end
+        end
+}
+
+SMODS.Joker{
+    key = "rsb",
+    config = { extra = {h_size = 0, h_mod = 1}},
+    rarity = 3,
+    cost = 10,
+    unlocked = true,
+    discovered = true,
+    pos = { x = 0, y = 0 },
+    atlas = "rsb",
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.h_size, card.ability.extra.h_mod } }
+    end,
+
+    calculate = function(self, card, context)
+        if context.playing_card_added and not context.blueprint then
+            card.ability.extra.h_size = card.ability.extra.h_size + #context.cards * card.ability.extra.h_mod
+            return {
+                message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult } },
+            }
+        end
+        if context.remove_playing_cards and not context.blueprint then  
+            cardarea = G.hand
+	        scoring_hand = scoring_hand
+    	    remove_playing_cards = true
+	        removed = cards_destroyed
+            card.ability.extra.h_size = card.ability.extra.h_size - 2
         end
     end
 }

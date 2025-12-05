@@ -45,7 +45,7 @@ return {
                     },
                 },
             },
-            j_dp_xm_simple = {
+            j_dp_jk_simple = {
                 name = "Simpleton",
                 text = {
                     {
@@ -64,7 +64,7 @@ return {
                     },
                 },
             },
-            j_dp_jk_wirtl = {
+            j_dp_rsb = {
                 name = "REPO Semi-Bot",
                 text = {
                     {
